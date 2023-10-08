@@ -1,0 +1,60 @@
+{% from 'macros/collapsible.html' import collapsible_js_init, caption_form_collapsible %}
+{% from 'macros/input_fields.html' import input_fields_js_init, textarea, slide_toggle, simple_radio %}
+{% from 'macros/spacer.html' import vspacer, hspacer, expandable_spacer %}
+{% from 'macros/specific_components.html' import map_view_card %}
+
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+  <h1 class="text-gray-900 dark:text-gray-300 text-lg">
+    Enter the body of water you wish to know about!
+  </h1>
+  {{ vspacer() }}
+  <input 
+    class="text-sm rounded-md p-4 text-gray-300 dark:text-gray-900 bg-gray-900 dark:bg-gray-300"
+    type="textarea" 
+    id="location-name-input" 
+    name="location-name">
+  {{ vspacer() }}
+  <button class="rounded-md p-4 text-base text-gray-900 dark:text-gray-300 bg-gray-300 dark:bg-gray-700" onclick="gotoMapView()">Search!</button>
+</div>
+
+<script>
+  const locationNameInput = document.getElementById("location-name-input")
+  function gotoMapView() {
+    locationName = locationNameInput.value;
+
+    // Send a POST request using fetch
+    const requestData = {
+      location_name: locationName
+    }
+    fetch('/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json', 
+      },
+      body: JSON.stringify({ 
+        location_name: locationName 
+      }),
+    })
+    .then(response => {
+      if (response.ok) {
+        response.json().then(json => {
+          console.log(json);
+          window.location.href = json["link"];
+        });
+      } 
+    })
+    .catch(error => {
+      console.error("Error posting caption:", error);
+      alert("Error posting caption : " + error)
+    });
+
+    }
+</script>
+{% endblock %}

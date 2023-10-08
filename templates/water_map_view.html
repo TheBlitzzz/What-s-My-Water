@@ -1,0 +1,61 @@
+{% from 'macros/collapsible.html' import collapsible_js_init, caption_form_collapsible %}
+{% from 'macros/input_fields.html' import input_fields_js_init, textarea, slide_toggle, simple_radio %}
+{% from 'macros/spacer.html' import vspacer, hspacer, expandable_spacer %}
+{% from 'macros/specific_components.html' import map_view_card %}
+
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+  <iframe 
+    width="900"
+    height="600" 
+    src="https://api.maptiler.com/maps/satellite/?key=QeKdGHJQeqZhKfFB3Lkt#{{ zoom_level|default('15', true) }}/{{ latitude|default('0.00000', true) }}/{{ longitude|default('0.00000', true)}}">
+  </iframe>
+</div>
+{{ map_view_card(
+  id="endangered-species",
+  url=url_for("whatsmywater.endangered_species", location_name = location_name),
+  title="Endangered Species",
+  subtitle="Find out more about the endangered species near you! Discover why they need your help.",
+  left="100px",
+  top="100px",
+) }}
+
+
+{{ map_view_card(
+  id="precautionary-actions",
+  url=url_for("whatsmywater.precautionary_actions", location_name = location_name),
+  title="How can you help?",
+  subtitle="The world needs your help to protect these marine animals! Read on to find out what you can help",
+  right="100px",
+  top="100px",
+) }}
+
+
+{{ map_view_card(
+  id="water-quality",
+  url=url_for("whatsmywater.water_quality", location_name = location_name),
+  title="Water Quality",
+  subtitle="Is the water safe to drink? Find out more about the water qualtiy near you!",
+  left="100px",
+  bottom="100px",
+) }}
+
+
+{{ map_view_card(
+  id="water-origins",
+  url=url_for("whatsmywater.water_origins", location_name = location_name),
+  title="Water Origins",
+  subtitle="Ever wondered where the water you drink and use come from? Let's trace its origins!",
+  right="100px",
+  bottom="100px",
+) }}
+<script>
+
+</script>
+{% endblock %}

@@ -1,0 +1,17 @@
+<!-- vspacer -->
+
+{% macro vspacer(height="10px") %}
+    <div style="height: {{ height }};"></div>
+{% endmacro %}
+
+<!-- hspacer -->
+
+{% macro hspacer(width="10px") %}
+    <div style="width: {{ width }};"></div>
+{% endmacro %}
+
+<!-- expandable_spacer -->
+
+{% macro expandable_spacer() %}
+    <div class="flex-grow"></div>
+{% endmacro %}

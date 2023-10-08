@@ -1,0 +1,55 @@
+<!-- caption_form_collapsible -->
+
+{% macro collapsible(title, section_id) %}
+    <div id="{{ section_id }}-collapsible" class="bg-gray-800 text-white shadow-md rounded-lg">
+        <!-- Title -->
+        <div id="{{ section_id }}-title" class="p-4 cursor-pointer border-b border-gray-600" onclick="toggleCaptionFormCollapsible('{{ section_id }}')">
+            <div class="flex justify-between items-center text-gray-900 dark:text-gray-300">
+                {{ title | safe }}
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </div>
+        </div>
+
+        <div id="{{ section_id }}-content" class="p-4" style="display='none">
+            {{ caller() }}
+        </div>
+    </div>
+ 
+    <script>
+        function toggleCaptionFormCollapsible(elementId) {
+            const contentDiv = document.getElementById(elementId + "-content");
+            if (contentDiv.style.display === 'none' || contentDiv.style.display === '') {
+                contentDiv.style.display = 'block';
+            } else {
+                contentDiv.style.display = 'none';
+            }
+
+            // Toggle the border class when collapsing/expanding
+            const titleDiv = document.getElementById(elementId + "-title");
+            titleDiv.classList.toggle('border-b', contentDiv.style.display === 'block');
+            titleDiv.classList.toggle('border-gray-600', contentDiv.style.display === 'block');
+        }
+    </script>
+{% endmacro %}
+
+<!-- js_init -->
+
+{% macro collapsible_js_init() %}
+<script>
+  function toggleCaptionFormCollapsible(elementId) {
+    const contentDiv = document.getElementById(elementId + "-content");
+    if (contentDiv.style.display === 'none' || contentDiv.style.display === '') {
+      contentDiv.style.display = 'block';
+    } else {
+      contentDiv.style.display = 'none';
+    }
+
+    // Toggle the border class when collapsing/expanding
+    const titleDiv = document.getElementById(elementId + "-title");
+    titleDiv.classList.toggle('border-b', contentDiv.style.display === 'block');
+    titleDiv.classList.toggle('border-gray-600', contentDiv.style.display === 'block');
+  }
+</script>
+{% endmacro %}

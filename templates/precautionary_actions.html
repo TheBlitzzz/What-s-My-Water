@@ -1,0 +1,24 @@
+{% from 'macros/collapsible.html' import collapsible_js_init, caption_form_collapsible %}
+{% from 'macros/input_fields.html' import input_fields_js_init, textarea, slide_toggle, simple_radio %}
+{% from 'macros/spacer.html' import vspacer, hspacer, expandable_spacer %}
+
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="p-4">
+  {{ contents|safe }}
+</div>
+
+<script>
+  document.getElementsByTagName("p").forEach((elements) => {
+    elements.classList.add("text-gray-900 dark:text-gray-300 text-sm")
+  });
+  document.getElementsByTagName("h1").forEach((elements) => {
+    elements.classList.add("text-gray-900 dark:text-gray-300 text-lg")
+  });
+</script>
+{% endblock %}

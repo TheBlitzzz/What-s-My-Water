@@ -1,0 +1,17 @@
+<!-- map_view_card -->
+
+{% macro map_view_card(id, url, title, subtitle, left="", right="", top="", bottom="") %}
+<a href="{{ url }}">
+  <div 
+    id="{{ id }}-card" 
+    class="absolute w-72 rounded-md p-4 bg-gray-300 dark:bg-gray-700" 
+    style="left:{{ left }}; right:{{ right }}; top:{{ top }}; bottom:{{ bottom }};">
+    <h1 class="text-lg text-gray-900 dark:text-gray-300">
+      {{ title }}
+    </h1>
+    <p class="text-sm text-gray-900 dark:text-gray-300">
+      {{ subtitle }}
+    </p>
+  </div>
+</a>
+{% endmacro %}

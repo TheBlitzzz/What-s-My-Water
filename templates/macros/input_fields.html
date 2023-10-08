@@ -1,0 +1,123 @@
+<!-- textarea -->
+
+{% macro textarea(id, title, label_class="", text_area_class="") %}
+<p class="text-gray-900 dark:text-gray-300 p-1 {{ label_class }}">{{ title }}</p>
+<textarea
+      id="{{ id }}-input" name="{{ id }}"
+      class="p-1 w-full bg-gray-900 rounded-md scrollbar-track-gray-800 scrollbar-thumb-gray scrollbar-thumb-rounded-lg {{ text_area_class }}"
+      rows=4
+    >
+</textarea>
+{% endmacro %}
+
+<!-- radio_btn-->
+
+{% macro simple_radio(id, label, value, checked=false, label_class="", radio_outer_circle_class="", radio_inner_circle_class="", input_attributes="") %}
+<label class="relative inline-flex items-center cursor-pointer">
+  <input 
+    type="radio" 
+    id="{{ id }}-{{ value }}-radio" 
+    name="{{ id }}" 
+    class="sr-only peer" 
+    value="{{ value }}"
+    onchange="radioBtnOnClick('{{ id }}-{{ value }}')"
+    {% if checked %}
+      checked
+    {% endif %}
+    {{ input_attributes }}
+  >
+  <div 
+    class="{{ radio_outer_circle_class }} rounded-full w-6 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 peer"
+    id="{{ id }}-{{ value }}-radio-outer-circle"
+  >
+    <div 
+      class="{{ radio_inner_circle_class }} absolute top-0.5 left-0.5 rounded-full w-5 h-5 bg-blue-600 hidden"
+      id="{{ id }}-{{ value }}-radio-inner-circle"
+    >
+    </div>
+  </div>
+  <span 
+    class="mr-3 ml-2 text-sm font-medium 
+    {% if checked %}
+      text-blue-600
+    {% else %}
+      text-gray-900 dark:text-gray-300
+    {% endif %}
+    {{ label_class }}"
+  >
+    {{ label }}
+  </span>
+</label>
+{% endmacro %}
+
+<!-- radio_group-->
+
+{% macro simple_radio_group(name, labels) %}
+{% endmacro %}
+
+<!-- slide_toggle-->
+
+{% macro slide_toggle(id, label, checked=false, label_class="", slider_container_class="", slider_container_attributes="", input_attributes="") %}
+<label class="relative inline-flex items-center cursor-pointer">
+  <input 
+    type="checkbox" 
+    id="{{ id }}-slider-toggle" 
+    name="{{ id }}"
+    class="sr-only peer"
+    onchange="toggleSliderOnChanged('{{ id  }}')"
+    {% if checked %}
+      checked
+    {% endif %}
+    {{ input_attributes }}
+  >
+  <div class="w-11 h-6 rounded-full peer bg-gray-200 dark:bg-gray-700 dark:border-gray-600
+    peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 
+    peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] peer-checked:bg-blue-600
+    after:absolute after:top-1/2 after:left-[2px] after:h-5 after:w-5 after:-mt-2.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:transition-all
+    {{ slider_container_class }}"
+    {{ slider_container_attributes }}
+  >
+  </div>
+  <span 
+    class="ml-3 text-sm font-medium {{ label_class }}
+      {% if checked %}
+        text-blue-600
+      {% else %}
+        text-gray-900 dark:text-gray-300
+      {% endif %}"
+  >
+    {{ label }}
+  </span>
+</label> 
+{% endmacro %}
+
+<!-- js_init -->
+
+{% macro input_fields_js_init() %}
+<script>
+  function radioBtnOnClick(elementId) {
+    const radio = document.getElementById(elementId + "-radio");
+    const radioInnerCircle = document.getElementById(elementId + "-radio-inner-circle");
+    
+    radioInnerCircle.style.display = "block";
+    const uncheckedRadios = document.querySelectorAll(`input[type="radio"][name="${radio.name}"]:not(:checked)`);
+    
+    uncheckedRadios.forEach(function(radio) {
+      const innerCircle = document.getElementById(radio.id + "-inner-circle");
+      innerCircle.style.display = "none";
+    });
+  }
+
+  function toggleSliderOnChanged(elementId) {
+    const checkbox = document.getElementById(elementId + "-slider-toggle"); 
+
+    if (checkbox.checked) {
+      checkbox.classList.add("after:translate-x-full");
+      checkbox.classList.remove("after:translate-x-0"); 
+    } else {
+      checkbox.classList.add("after:translate-x-0");
+      checkbox.classList.remove("after:translate-x-full");  
+    }
+  }
+</script>
+{% endmacro %}

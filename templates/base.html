@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ app_name|default('app', true) }}</title>
+  <link rel="stylesheet" href={{ url_for('static', filename='css/tailwind_styles.css') }}>
+  <link rel="stylesheet" href={{ url_for('static', filename='css/base_styles.css') }}>
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <script src={{ url_for('static', filename='js/base_js.js') }}></script>
+  {% block head %} {% endblock %}
+</head> 
+<body class="bg-slate-100 dark:bg-slate-900">
+  {% from 'macros/input_fields.html' import slide_toggle, input_fields_js_init %}
+  {% from 'macros/collapsible.html' import collapsible_js_init %}
+  <div class="display-block p-4 bg-gray-300 dark:bg-gray-800">
+    <a class="text-3xl text-gray-900 dark:text-gray-300" href="/">{{ app_name_display|default('App', true) }}</a>
+    <div class="float-right">
+      {{ slide_toggle(id="dark-mode", label="Dark mode", label_class="font-medium text-xl") }}
+    </div>
+  </div>
+  
+  {% block body %} {% endblock %}
+</body>
+<script>
+  const darkModeToggle = document.getElementById("dark-mode-slider-toggle");
+  darkModeToggle.addEventListener("change", () => {
+    if (darkModeToggle.checked) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  });
+  
+  darkModeToggle.click();
+</script> 
+{{ collapsible_js_init() }}
+{{ input_fields_js_init() }}
+</html>
