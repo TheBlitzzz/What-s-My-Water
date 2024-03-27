@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block body %}
-<div class="p-4">
+<div class="p-4 text-gray-900 dark:text-gray-300 [&_p]:text-sm [&_h1]:text-lg">
   <!-- <h1 class="text-lg text-gray-900 dark:text-gray-300">
     The Putrajaya Lake
   </h1>
@@ -18,13 +18,4 @@
   </p> -->
   {{ contents|safe }}
 </div>
-
-<script>
-  document.getElementsByTagName("p").forEach((elements) => {
-    elements.classList.add("text-gray-900 dark:text-gray-300 text-sm")
-  });
-  document.getElementsByTagName("h1").forEach((elements) => {
-    elements.classList.add("text-gray-900 dark:text-gray-300 text-lg")
-  });
-</script>
 {% endblock %}
